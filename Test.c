@@ -259,7 +259,7 @@ void swap(int i, int j) {
 int  partition1(int l, int r, int x)
 {
 	int a = l;
-	int xi;
+	int xi = 0;
 	for (int i = l; i <= r; i++)
 	{
 		if (arr[i]<x)
@@ -334,6 +334,67 @@ int randomizedSelect(int l, int r, int i)
 		}
 	}
 	return ans;
+}
+//向上调整(用于从顶向低建堆)
+void heapIsert(int* arr, int i)
+{
+	while (arr[i] > arr[(i - 1) / 2])//只要当前节点大于父节点
+	{
+		swap(i, (i - 1) / 2);
+		i = (i - 1) / 2;
+	}
+
+}
+//向下调整(用于从低向顶建堆)
+void heapify(int*arr,int i,int size)
+{
+	int l = (i * 2) + 1;//左孩子
+	while (l < size)//保证有左孩子
+	{
+		//如果右孩子存在并且右孩子大       =r  否则=l
+		int max = (l+1<size && arr[l+1]>arr[l]) ? l+1 : l;
+		//再比较当前节点和大的孩子
+		max = (arr[i] > arr[max]) ? i : max;
+		if (max == i)
+		{
+			break;
+		}
+		//如果max不是当前节点i
+		swap(i, max);//i和max节点的值交换
+		i = max;//看是否还需要再向下调整
+		l= (i * 2) + 1;
+	}
+}
+//堆排序1，从上到下建堆+排序
+void heapSort(int* arr, int n)
+{
+	for (int i = 0; i < n; i++)//从低到顶建堆
+	{
+		heapify(arr, i, n);
+	}
+	//排序
+	int size = n;
+	while (size > 1)
+	{
+		swap(0, n);
+		n--;
+		heapify(arr, 0, n);
+	}
+}
+//堆排序2，从下到上建堆+排序
+void heapSort(int* arr, int n)
+{
+	for (int i = n-1; i >=0; i--)
+	{
+		heapify(arr, i, n);
+	}
+	int size = n;
+	while (size > 1)
+	{
+		swap(size, 0);
+		size--;
+		heapify(arr, 0, n);
+	}
 }
 int main()
 {
