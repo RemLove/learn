@@ -1,6 +1,5 @@
-﻿#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
+﻿
+#include "Heap.h"
 #define MAX 501
 //归并过程,把两个有序的子数组合并成一个有序的大数组
 int arr[MAX];
@@ -208,7 +207,7 @@ int FindPeak(int* arr, int length)
 	return -1;
 }
 //归并排序 递归版
-void MergeSort1(int l, int r)
+void MergeSort(int l, int r)
 {
 	if (l == r)
 	{
@@ -249,12 +248,6 @@ void MergeSort2()
 		}
 	}
 }
-// 交换数组元素
-void swap(int i, int j) {
-	int tmp = arr[i];
-	arr[i] = arr[j];
-	arr[j] = tmp;
-}
 //经典 partition
 int  partition1(int l, int r, int x)
 {
@@ -264,7 +257,7 @@ int  partition1(int l, int r, int x)
 	{
 		if (arr[i]<x)
 		{
-			swap(a, i);
+			swap(arr,a, i);
 			if (arr[a] == arr[i])
 			{
 				xi = i;
@@ -273,7 +266,7 @@ int  partition1(int l, int r, int x)
 		}
 	}
 	//i走到r的位置了，走到尽头了
-	swap(xi, a - 1);
+	swap(arr,xi, a - 1);
 	return a - 1;
 }
 //优化partition,荷兰国旗问题
@@ -287,12 +280,12 @@ void partition(int l, int r, int x)
 	{
 		if ( arr[i]<x)
 		{
-			swap(first, i);
+			swap(arr,first, i);
 			first++;
 		}
 		else if (arr[i] > x)
 		{
-			swap(last, i);
+			swap(arr,last, i);
 			last--;
 			i--;
 		}
@@ -340,13 +333,13 @@ void heapIsert(int* arr, int i)
 {
 	while (arr[i] > arr[(i - 1) / 2])//只要当前节点大于父节点
 	{
-		swap(i, (i - 1) / 2);
+		swap(arr,i, (i - 1) / 2);
 		i = (i - 1) / 2;
 	}
 
 }
 //向下调整(用于从低向顶建堆)
-void heapify(int*arr,int i,int size)
+void heapifyHigh(int*arr,int i,int size)
 {
 	int l = (i * 2) + 1;//左孩子
 	while (l < size)//保证有左孩子
@@ -360,13 +353,13 @@ void heapify(int*arr,int i,int size)
 			break;
 		}
 		//如果max不是当前节点i
-		swap(i, max);//i和max节点的值交换
+		swap(arr,i, max);//i和max节点的值交换
 		i = max;//看是否还需要再向下调整
 		l= (i * 2) + 1;
 	}
 }
 //堆排序1，从上到下建堆+排序
-void heapSort(int* arr, int n)
+void heapSort1(int* arr, int n)
 {
 	for (int i = 0; i < n; i++)//从低到顶建堆
 	{
@@ -376,13 +369,13 @@ void heapSort(int* arr, int n)
 	int size = n;
 	while (size > 1)
 	{
-		swap(0, n);
+		swap(arr,0, n);
 		n--;
 		heapify(arr, 0, n);
 	}
 }
 //堆排序2，从下到上建堆+排序
-void heapSort(int* arr, int n)
+void heapSort2(int* arr, int n)
 {
 	for (int i = n-1; i >=0; i--)
 	{
@@ -391,17 +384,27 @@ void heapSort(int* arr, int n)
 	int size = n;
 	while (size > 1)
 	{
-		swap(size, 0);
+		swap(arr,size, 0);
 		size--;
 		heapify(arr, 0, n);
 	}
 }
 int main()
 {
-	int arr[] = { 1,5,4,3,2 };
-	int length = sizeof(arr) / sizeof(arr[0]);
-	InsertSort(arr, length);
-	SortPrint(arr, length);
+	
+	char arr1[] = "hello";
+	char arr2[] = "hello";
+	if (arr1 == arr2)
+	{
+		printf("true\n");
+	}
+	else
+	{
+		printf("false\n");
+	}
+	strcpy(arr1, "world");
+	printf("%s\n", arr1);
+	printf("%s\n", arr2);
 	return 0;
 }
 
