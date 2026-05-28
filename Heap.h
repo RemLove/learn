@@ -6,7 +6,7 @@
 typedef struct Listnode
 {
 	int val;
-	struct Listnode* phead;
+	struct Listnode* next;
 }Listnode;
 
 typedef struct MinHeap
@@ -25,3 +25,13 @@ void heapifySmall(int* arr, int i, int size);
 void swap(int* arr, int i, int j);
 //检查堆容量是否够
 void CheckHeap(MinHeap* phead);
+//堆销毁
+void HeapDestroy(MinHeap* phead);
+//交换两个节点指针
+void swap2(Listnode** a, Listnode** b);
+//弹出，堆顶(小根堆，最小值)
+Listnode* HeapPop(MinHeap* phead);
+//加入数据
+void HeapPush(MinHeap* phead, Listnode* node);
+//合并k个有序链表
+Listnode* MergeKLists(Listnode** arr, int k);
