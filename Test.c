@@ -363,7 +363,7 @@ void heapSort1(int* arr, int n)
 {
 	for (int i = 0; i < n; i++)//从低到顶建堆
 	{
-		heapify(arr, i, n);
+		heapifySmall(arr, i, n);
 	}
 	//排序
 	int size = n;
@@ -371,7 +371,7 @@ void heapSort1(int* arr, int n)
 	{
 		swap(arr,0, n);
 		n--;
-		heapify(arr, 0, n);
+		heapifySmall(arr, 0, n);
 	}
 }
 //堆排序2，从下到上建堆+排序
@@ -379,32 +379,25 @@ void heapSort2(int* arr, int n)
 {
 	for (int i = n-1; i >=0; i--)
 	{
-		heapify(arr, i, n);
+		heapifySmall(arr, i, n);
 	}
 	int size = n;
 	while (size > 1)
 	{
 		swap(arr,size, 0);
 		size--;
-		heapify(arr, 0, n);
+		heapifySmall(arr, 0, n);
 	}
 }
 int main()
 {
-	
-	char arr1[] = "hello";
-	char arr2[] = "hello";
-	if (arr1 == arr2)
+	int sum = 0;
+
+	for (int i = 0; i < 100; i++, i++)
 	{
-		printf("true\n");
+		sum++;
+		printf("%d \n", sum);
 	}
-	else
-	{
-		printf("false\n");
-	}
-	strcpy(arr1, "world");
-	printf("%s\n", arr1);
-	printf("%s\n", arr2);
 	return 0;
 }
 

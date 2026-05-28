@@ -21,6 +21,12 @@
     <ClCompile Include="Heap.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MaxCover.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MinimumOperationsToHalveArraySum.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heap.h">
