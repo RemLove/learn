@@ -27,6 +27,9 @@
     <ClCompile Include="MinimumOperationsToHalveArraySum.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="practic.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heap.h">

@@ -389,7 +389,7 @@ void heapSort2(int* arr, int n)
 		heapifySmall(arr, 0, n);
 	}
 }
-int main()
+int main1()
 {
 	int sum = 0;
 
