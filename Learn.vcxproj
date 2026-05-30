@@ -142,7 +142,8 @@
     <ClCompile Include="Heap.c" />
     <ClCompile Include="MaxCover.c" />
     <ClCompile Include="MinimumOperationsToHalveArraySum.c" />
-    <ClCompile Include="practic.c" />
+    <ClCompile Include="practic1.c" />
+    <ClCompile Include="practic2.c" />
     <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
