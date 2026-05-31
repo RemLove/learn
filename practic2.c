@@ -63,6 +63,7 @@ int ReverseBits(int n)
 	return n;
 }
 //位运算实现加法
+//思路：无进位相加的结果+进位信息
 int add(int a, int b)
 {
 	int ans = 0;
@@ -93,4 +94,37 @@ int multiply(int a, int b)
 		a <<= 1;
 	}
 	return ans;
+}
+//位运算实现除法
+
+int neg(int a)
+{
+	return (a >= 0) ? a : add(~a, 1);
+}
+int div(int a, int b)
+{
+	if (b == 0)
+	{
+		error("b==0");
+		exit(-1);
+	}
+	unsigned int x = (a > 0) ? a : neg(a);
+	unsigned int y = (b > 0) ? b : neg(b);
+	int ans = 0;
+	for (int i = 31; i >= 0; i=minus(i,1))
+	{
+		if ((x >> i) >= y)
+		{
+			ans = ans | (1 << i);
+			x = minus(x, y << i);
+		}
+	}
+	if ((a ^ b) < 0)//异号
+	{
+		return add(~ans, 1);
+	}
+	else
+	{
+		return ans;
+	}
 }
