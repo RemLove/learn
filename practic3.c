@@ -60,3 +60,223 @@ Listnode* getIntersectionNode(Listnode* h1, Listnode* h2)
 	}
 	return a;
 }
+//2.按组反转链表
+//判断够不够k个，如果够返回尾节点，不够返回NULL
+Listnode* End(Listnode* phead, int k)
+{
+	Listnode* head = phead;
+	while (k-1 > 0)
+	{
+		//不足k个
+		if (phead == NULL)
+		{
+			return NULL;
+		}
+		phead = phead->next;
+		k--;
+	}
+	return phead;
+}
+//反转s到e内的所有节点，返回新头节点
+void Reverse(Listnode* s, Listnode* e)
+{
+	assert(s && e);
+	Listnode* NextGroup = e->next;//下一组的头
+	Listnode* pcur = s->next;
+	Listnode* pre = s;//记录头
+	Listnode* next = s->next;
+	//找到e节点
+	while (pcur != e)
+	{
+		pcur = pcur->next;
+		next->next = pre;
+		pre = next;
+		next = pcur;
+	}
+	s->next = NextGroup;
+	pcur->next = pre;//上一个
+}
+
+Listnode* ReverseLists(Listnode* head, int k)
+{
+	//如果链表为空或者k==1
+	if (head == NULL || k == 1)
+	{
+		return head;
+	}
+	//处理第一次分组
+	Listnode* start = head;
+	Listnode* end = End(start, k);
+	if (end == NULL)
+	{
+		return head;
+	}
+	Reverse(start, end);
+	head = end;
+	Listnode* LastTeamEnd = start;
+	while (LastTeamEnd->next != NULL)
+	{
+		start = LastTeamEnd->next;
+		end = End(start, k);
+		if (end == NULL)
+		{
+			return head;
+		}
+		Reverse(start, end);
+		LastTeamEnd->next = end;
+		LastTeamEnd = start;
+
+	}
+	return head;
+}
+//3.复制带随机指针的链表
+typedef struct Node
+{
+	int val;
+	struct Node* next;
+	struct Node* random;
+}Node;
+Node* copyRandomList(Node* head)
+{
+	if (head == NULL)
+	{
+		return NULL;
+	}
+	//1->1'->2->2'->3->3'->null
+	Node* pcur = head;
+	Node* next = NULL;
+	while (pcur != NULL)
+	{
+		next = pcur->next;
+		//创建新节点
+		Node* copy = (Node*)malloc(sizeof(Node));
+		//初始化
+		copy->val = pcur->val;
+		copy->random = NULL;
+		copy->next = NULL;
+		//连接新节点和老节点
+		copy->next = next;
+		pcur->next = copy;
+		//往下走
+		pcur = next;
+	}
+	//设置random
+	Node* cur = head;
+	while (cur != NULL)
+	{
+		next = cur->next->next;
+		Node* copy = cur->next;
+		
+		if (cur->random != NULL)
+		{
+			copy->random = cur->random->next;
+		}
+		else
+		{
+			copy->random = NULL;
+		}
+		cur = next;
+	}
+	//分离新老链表
+	Node* ans = head->next;
+	cur = head;
+	while (cur != NULL)
+	{
+		next = cur->next->next;
+		Node* copy = cur->next;
+		//连接老链表
+		cur->next = next;
+		if (next)
+		{
+			copy->next = next->next;
+		}
+		else
+		{
+			copy->next = NULL;
+		}
+		cur = next;
+	}
+	return ans;
+}
+//判断链表是否是回文结构,是回文结构返回1，否则返回0
+int  Code04_PalindromeLinkedList(Listnode* head)
+{
+	if (head==NULL||head->next == NULL)
+	{
+		return 1;
+	}
+	//1.slow到中点
+	Listnode* slow = head;
+	Listnode* fast = head;
+	while (fast->next != NULL && fast->next->next != NULL)
+	{
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+	//2.反转后面链表
+	Listnode* pre = slow;
+	Listnode* cur = slow->next;
+	Listnode* next = NULL;
+	slow->next = NULL;
+	while (cur != NULL)
+	{
+		next = cur->next;
+		cur->next = pre;
+		pre = cur;
+		cur = next;
+	}
+	//3.开始对比
+	int ans = 1;
+	Listnode* left = head;
+	Listnode* right = pre;
+	while (left && right)
+	{
+		if (left->val != right->val)
+		{
+			ans = 0;
+			break;
+		}
+		left = left->next;
+		right = right->next;
+	}
+	//4.复原链表
+	cur = pre->next;
+	while (cur != NULL)
+	{
+		next = cur->next;
+		cur->next = pre;
+		pre = cur;
+		cur = next;
+	}
+	return ans;
+
+}
+// 寻找链表环的入口节点，无环返回 NULL
+Listnode* detectCycle(Listnode* head)
+{
+	//小于三个不可能是环
+	if (head == NULL || head->next == NULL || head->next->next == NULL)
+	{
+		return NULL;
+	}
+	Listnode* slow = head->next;
+	Listnode* fast = head->next->next;
+	while (slow != fast)
+	{
+		if (fast->next == NULL || fast->next->next == NULL)
+		{
+			return NULL;
+		}
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+	//第一次已经相遇了
+	fast = head;
+	while (slow != fast)
+	{
+		fast = fast->next;
+		slow = slow->next;
+	}
+	//第二次已经相遇了
+	return fast;
+}
