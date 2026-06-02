@@ -8,7 +8,6 @@ typedef struct ListNode
 	struct ListNode* next;
 
 }Listnode;
-
 //1.返回无环链表相交的第一个节点
 Listnode* getIntersectionNode(Listnode* h1, Listnode* h2)
 {
@@ -198,7 +197,7 @@ Node* copyRandomList(Node* head)
 	}
 	return ans;
 }
-//判断链表是否是回文结构,是回文结构返回1，否则返回0
+//4.判断链表是否是回文结构,是回文结构返回1，否则返回0
 int  Code04_PalindromeLinkedList(Listnode* head)
 {
 	if (head==NULL||head->next == NULL)
@@ -251,7 +250,7 @@ int  Code04_PalindromeLinkedList(Listnode* head)
 	return ans;
 
 }
-// 寻找链表环的入口节点，无环返回 NULL
+// 5.寻找链表环的入口节点，无环返回 NULL
 Listnode* detectCycle(Listnode* head)
 {
 	//小于三个不可能是环
@@ -279,4 +278,109 @@ Listnode* detectCycle(Listnode* head)
 	}
 	//第二次已经相遇了
 	return fast;
+}
+//6.返回有序链表
+Listnode* start = NULL;
+Listnode* end = NULL;
+Listnode* FindEnd(Listnode* s, int k)
+{
+	while (s->next != NULL && --k != 0)
+	{
+		s = s->next;
+	}
+	return s;
+}
+//归并排序merge
+void Merge(Listnode* l1, Listnode* r1, Listnode* l2, Listnode* r2)
+{
+	Listnode* pre = NULL;
+	//判断第一次
+	if (l1->val <= l2->val)
+	{
+		start = l1;
+		pre = l1;
+		l1 = l1->next;
+	}
+	else
+	{
+		start = l2;
+		pre = l2;
+		l2 = l2->next;
+	}
+	//处理后续,双指针归并
+	while (l1 != NULL && l2 != NULL)
+	{
+		if (l1->val <= l2->val)
+		{
+			pre->next = l1;
+			pre = l1;
+			l1 = l1->next;
+		}
+		else
+		{
+			pre->next = l2;
+			pre = l2;
+			l2 = l2->next;
+		}
+	}
+	if (l1 != NULL)
+	{
+		pre->next = l1;
+		end = r1;
+	}
+	else
+	{
+		pre->next = l2;
+		end = r2;
+	}
+}
+Listnode* sortList(Listnode* head)
+{
+	Listnode* l1, * r1, * l2, * r2, * next, * LastTeamEnd;
+	if (head == NULL || head->next == NULL)
+	{
+		return head;
+	}
+	//看看链表的长度，方便写步长
+	int n = 0;
+	Listnode* cur = head;
+	while (cur)
+	{
+		cur = cur->next;
+		n++;
+	}
+	for (int step = 1; step < n; step <<= 1)
+	{
+		//先处理第一组
+		l1 = head;
+		r1 = FindEnd(l1, step);
+		l2 = r1->next;
+		r2 = FindEnd(l2, step);
+
+		next = r2->next;
+		r1->next = NULL;
+		r2->next = NULL;
+		Merge(l1, r1, l2, r2);
+		head = start;
+		LastTeamEnd = end;
+		while (next)
+		{
+			l1 = next;
+			r1 = FindEnd(l1, step);
+			l2 = r1->next;
+			if (l2 == NULL)
+			{
+				LastTeamEnd->next = l1;
+				break;
+			}
+			r2 = FindEnd(l2, step);
+			next = r2->next;
+			r1->next = NULL;
+			r2->next = NULL;
+			Merge(l1, r1, l2, r2);
+			LastTeamEnd->next = start;
+			LastTeamEnd = end;
+		}
+	}
+	return head;
 }
