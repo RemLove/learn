@@ -153,3 +153,25 @@ int maxArea(int arr[], int size)
     }
     return ans;
 }
+//6.给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
+int firstMissingPositive(int arr[], int size)
+{
+    int l = 0;
+    int r = size;
+    while (l < r)
+    {
+        if (arr[l] == l + 1)
+        {
+            l++;
+        }
+        else if (arr[l] <= l || arr[l] > r || arr[arr[l] - 1] == arr[l])
+        {
+            swap(arr, l,--r);
+        }
+        else
+        {
+            swap(arr, l, arr[l]-1);
+        }
+    }
+    return l + 1;
+}
