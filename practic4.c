@@ -2,6 +2,9 @@
 #include<stdlib.h>
 #include<assert.h>
 #include<math.h>
+#define max(a, b) ((a) > (b) ? (a) : (b))
+#define min(a, b) ((a) < (b) ? (a) : (b))
+
 //1.按奇偶排序数组
 // 给定一个非负整数数组 nums。nums 中一半整数是奇数 ，一半整数是偶数
 // 对数组进行排序，以便当 nums[i] 为奇数时，i也是奇数
@@ -41,12 +44,12 @@ int findDuplicate(int arr[], int size)
     }
     //快慢指针，成环
     int slow = arr[0];
-    int fast = arr[arr[0]];
-    while (slow != fast)
+    int fast = arr[0];
+    do
     {
         slow = arr[slow];
         fast = arr[arr[fast]];
-    }
+    } while (slow != fast);
     //第一次已经相遇
     fast = arr[0];
     while (slow != fast)
@@ -114,7 +117,7 @@ int numRescueBoats(int* people, int peopleSize, int limit) {
     int ans = 0;
     while (l <= r)
     {
-        sum = (l==r) ? sum = people[l] : people[l] + people[r];
+        sum = (l==r) ? people[l] : people[l] + people[r];
         if (sum <= limit)
         {
             l++;
