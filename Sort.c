@@ -34,11 +34,11 @@ void BubbleSort(int arr[], int size)
 {
 	for (int i = size-1; i >=0; i--)
 	{
-		for (int j = 0; j <=i; j++)
+		for (int j = 0; j <i; j++)
 		{
-			if (arr[j] > arr[i])
+			if (arr[j] > arr[j+1])
 			{
-				swap(arr, i, j);
+				swap(arr, j+1, j);
 			}
 		}
 	}
@@ -104,5 +104,115 @@ void MergeSort(int arr[], int help[], int size)
 			merge(arr, help, l, m, r);
 			l = r + 1;
 		}
+	}
+}
+//6.随机快排
+int first = 0;//等于  x   的最左边
+int last = 0;//等于  x   的最右边
+//荷兰国旗问题核心逻辑
+void partition(int arr[], int l, int r, int x)
+{
+	first = l;
+	last = r;
+	int i = l;
+	while (i <= last)
+	{
+		if (arr[i]<x)
+		{
+			swap(arr, first, i);
+			first++;
+			i++;
+		}
+		else if (arr[i]==x)
+		{
+			i++;
+		}
+		else//>x
+		{
+			swap(arr, i, last);
+			last--;
+		}
+	}
+}
+void QuickSort(int arr[], int l, int r)
+{
+	if (l >= r)
+	{
+		return;
+	}
+	int randIdx = l + rand() % (r - l + 1);
+	int x = arr[randIdx];
+	partition(arr, l, r, x);
+	QuickSort(arr, l, first-1);
+	QuickSort(arr, last + 1, r);
+}
+//封装一下
+void Quick_Sort(int arr[], int size)
+{
+	//初始化随机种子
+	srand((unsigned)time(NULL));
+	QuickSort(arr, 0, size - 1);
+}
+//7.堆排序
+//#1. arr[i]=x   x是新来的数，向上调整（大根堆），直到不比他的父亲大或者到达0位置停止
+void heapIsert(int arr[], int i)
+{
+	while (arr[i] > arr[(i - 1) / 2])//只要大于父节点
+	{
+		swap(arr, i, (i - 1) / 2);
+		i = (i - 1) / 2;
+	}
+}
+
+//#2. i位置的数改变了，又要维持大根堆，向下调整大根堆，数组长度是size
+void heapify(int arr[],int size, int i)
+{
+	int l = i * 2 + 1;
+	while (l < size)//保证左孩子存在
+	{
+		//右孩子存在且大于左孩子，best等于右孩子，否则等于左孩子
+		int best = (l + 1 < size && arr[l + 1] > arr[l]) ? l + 1 : l;
+		//比较较大的孩子和当前节点哪个大
+		best = arr[i] > arr[best] ? i : best;
+		//如果当前节点就是最大的
+		if (best == i)
+		{
+			break;
+		}
+		//当前节点不是最大的
+		swap(arr, i, best);
+		i = best;
+		l = i * 2 + 1;
+	}
+}
+//#1.堆排序，从上往下建堆   就是把数组建成完全二叉树
+void heapSort1(int arr[],int size)
+{
+	//从上往下建堆
+	for (int i = 0; i < size; i++)
+	{
+		heapIsert(arr, i);
+	}
+	int last = size;
+	while (last)
+	{
+		swap(arr, last-1, 0);
+		last--;
+		heapify(arr, last, 0);
+	}
+}
+//#2.堆排序，从下往上建堆
+void heapSort2(int arr[], int size)
+{
+	int n = size;
+	for (int i = size - 1; i >= 0; i--)
+	{
+		heapify(arr, n, i);
+	}
+	while (n)
+	{
+		swap(arr, n-1, 0);
+		n--;
+		heapify(arr, n, 0);
 	}
 }
