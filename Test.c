@@ -4,18 +4,20 @@ int main()
 {
 	int arr[] = { 1,2,0,5,4,3 };
 	int size = sizeof(arr) / sizeof(arr[0]);
+	int help[100];
 	//1.选择排序
-	//SelectionSort(arr, size);
+	//SelectSort(arr, size);
 	//2.冒泡排序
-	BubbleSort(arr, size);
+	//BubbleSort(arr, size);
 	//3.插入排序
 	//InsertSort(arr, size);
-	//4.归并排序(递归版)
-	int help[100];
-	//MergeSortRecursive(arr, help, 0, size-1);
-	//5.归并排序（非递归版）
-	//MergeSort(arr, help, size);
-	//6.随机快排
-	//Quick_Sort(arr, size);
+	//4.1归并排序（递归版）
+	//MergeSort1(arr, help, 0, size - 1);
+	//4.2归并排序（非递归版）
+	//MergeSort2(arr, help, size);
+	//5.随机快排
+	//QuickSort(arr, size);
+	//6.堆排
+	HeapSort2(arr, size);
 	print(arr, size);
 }
