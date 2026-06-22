@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="c语言题库.c" />
     <ClCompile Include="Heap.c" />
     <ClCompile Include="MaxCover.c" />
     <ClCompile Include="MinimumOperationsToHalveArraySum.c" />

@@ -1,4 +1,4 @@
-#include<stdio.h>
+/*#include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 #include<math.h>
@@ -38,7 +38,7 @@ int* SortArrayByParity(int arr[], int size)
 //2.寻找重复数
 int findDuplicate(int arr[], int size)
 {
-    if (arr == NULL || size < 2)
+    if (arr == NULL || size < 2);
     {
         return -1;
     }
@@ -177,4 +177,4 @@ int firstMissingPositive(int arr[], int size)
         }
     }
     return l + 1;
-}
+}*/

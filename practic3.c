@@ -1,4 +1,4 @@
-#include<stdio.h>
+/*#include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 typedef int TypedefData;
@@ -383,4 +383,4 @@ Listnode* sortList(Listnode* head)
 		}
 	}
 	return head;
-}
+}*/

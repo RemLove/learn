@@ -1,4 +1,4 @@
-#include<stdio.h>
+/*#include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 //位运算练习1
@@ -125,4 +125,4 @@ int main2()
 	printf("%d \n", a);
 	printf("%d \n", b);
 	return 0;
-}
+}*/

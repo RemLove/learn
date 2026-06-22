@@ -1,4 +1,4 @@
-#include "Heap.h"
+/*#include "Heap.h"
 
 // 交换数组元素
 void swap(int* arr, int i, int j)
@@ -140,4 +140,4 @@ Listnode* MergeKLists(MinHeap*heap, Listnode** arr, int k)
 	free(heap->data);
 	free(heap);
 	return head;
-}
+}*/

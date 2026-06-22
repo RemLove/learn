@@ -1,4 +1,4 @@
-#include<stdio.h>
+/*#include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 //位运算练习2
@@ -127,4 +127,4 @@ int div(int a, int b)
 	{
 		return ans;
 	}
-}
+}*/

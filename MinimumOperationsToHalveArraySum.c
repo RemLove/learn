@@ -1,4 +1,4 @@
-#include<stdio.h>
+/*#include<stdio.h>
 #include<stdlib.h>
 #include<assert.h>
 #include <stdint.h>
@@ -50,4 +50,4 @@ int halveArray(int* nums, int numsSize)
 		heapify(0);
 	}
 	return ans;
-}
+}*/

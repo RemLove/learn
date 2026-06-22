@@ -1,4 +1,4 @@
-﻿
+﻿/*
 #include "Heap.h"
 #define MAX 501
 //归并过程,把两个有序的子数组合并成一个有序的大数组
@@ -399,6 +399,6 @@ int main1()
 		printf("%d \n", sum);
 	}
 	return 0;
-}
+}*/
 
 
