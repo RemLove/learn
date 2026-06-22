@@ -10,3 +10,19 @@ x86/
 *.opensdf
 *.db
 *.opendb
+*.sln.docstates
+*.userosscache
+
+# Build outputs
+*.exe
+*.dll
+*.obj
+*.pdb
+*.lib
+*.ilk
+*.exp
+*.iobj
+*.ipdb
+*.tlog
+*.lastbuildstate
+*.log
